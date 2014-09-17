@@ -81,7 +81,7 @@ if (filter_has_var(INPUT_POST, 'ay')) {
     $_SESSION['ay']['flash']['input']	= $_POST['ay'];
 }
 
-if (empty($_SESSION['xhprof']['remote_version'])) {
+/* if (empty($_SESSION['xhprof']['remote_version'])) {
     $ch			= curl_init();
 
     curl_setopt_array($ch, array(
@@ -101,7 +101,7 @@ if (empty($_SESSION['xhprof']['remote_version'])) {
     }
 
     unset($version, $response);
-}
+} */
 
 if (!empty($_SESSION['xhprof']['remote_version']) && $_SESSION['xhprof']['remote_version'] != VERSION) {
     \ay\message('You are running an out-of-date version of XHProf.io (' . VERSION . '). The <a href="http://xhprof.io/" target="_blank">current version is ' . htmlspecialchars($_SESSION['xhprof']['remote_version']) . '</a>.', \ay\MESSAGE_NOTICE);
