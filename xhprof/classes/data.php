@@ -527,6 +527,8 @@ class data
                 c1.id = r1.request_caller_id
             WHERE
                 1=1 %s
+            ORDER BY
+                request_id DESC
             LIMIT
                 %d
         ", $sql_query['where'], $query['dataset_size']);
