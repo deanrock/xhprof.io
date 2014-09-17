@@ -11,7 +11,7 @@ function xhprof_init()
 {
     global $xhprofMainConfig;
 
-    if (!extension_loaded('xhprof')) {
+    if (!extension_loaded('xhprof') && !extension_loaded('uprofiler')) {
         return false;
     }
 
@@ -55,7 +55,11 @@ function xhprof_init()
         return false;
     }
 
-    xhprof_enable(XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU);
+    if (extension_loaded('uprofiler')) {
+        uprofiler_enable(UPROFILER_FLAGS_MEMORY | UPROFILER_FLAGS_CPU);
+    } else {
+        xhprof_enable(XHPROF_FLAGS_MEMORY | XHPROF_FLAGS_CPU);
+    }
 
     return true;
 }
@@ -64,7 +68,11 @@ function xhprof_shutdown()
 {
     global $xhprofMainConfig;
 
-    $xhprof_data	= xhprof_disable();
+    if (extension_loaded('uprofiler')) {
+        $xhprof_data = uprofiler_disable();
+    } else {
+        $xhprof_data = xhprof_disable();
+    }
 
     if(function_exists('fastcgi_finish_request')) {
         fastcgi_finish_request();
